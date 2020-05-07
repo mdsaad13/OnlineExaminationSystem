@@ -215,13 +215,23 @@ namespace OnlineExaminationSystem.DAL
             return result;
         }
 
-        internal List<Exam> AllExams()
+        internal List<Exam> AllExams(bool OnlyActive = false, int PerticularSub = 0)
         {
             DataTable td = new DataTable();
             List<Exam> list = new List<Exam>();
             try
             {
-                string sqlquery = "SELECT * FROM exams ORDER BY exam_id DESC";
+                string StatusQuery = string.Empty;
+                string PerticularSubQuery = string.Empty;
+                if (OnlyActive)
+                {
+                    StatusQuery = "WHERE status = 1";
+                }
+                if (PerticularSub > 0)
+                {
+                    PerticularSubQuery = " AND sub_id = "+ PerticularSub;
+                }
+                string sqlquery = $"SELECT * FROM exams {StatusQuery}{PerticularSubQuery} ORDER BY exam_id DESC";
                 SqlCommand cmd = new SqlCommand(sqlquery, Conn);
                 SqlDataAdapter adp = new SqlDataAdapter(cmd);
                 Conn.Open();

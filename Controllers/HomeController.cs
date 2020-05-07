@@ -59,20 +59,24 @@ namespace OnlineExaminationSystem.Controllers
         [Route("Login")]
         public ActionResult Login()
         {
-            int Notification = 0;
-            try
-            {
-                Notification = Convert.ToInt32(Session["Notification"]);
-            }
-            catch
-            { }
+            Session["StudentID"] = 1;
+            Session["Name"] = "Mohammed Saad";
+            return RedirectToAction("Index", "Student");
 
-            if (Notification == 1)
-            {
-                ViewBag.SuccessMessage = "Account successfully created!<br>Kindly login to access dashboard";
-                Session["Notification"] = null;
-            }
-            return View();
+            //int Notification = 0;
+            //try
+            //{
+            //    Notification = Convert.ToInt32(Session["Notification"]);
+            //}
+            //catch
+            //{ }
+
+            //if (Notification == 1)
+            //{
+            //    ViewBag.SuccessMessage = "Account successfully created!<br>Kindly login to access dashboard";
+            //    Session["Notification"] = null;
+            //}
+            //return View();
         }
 
         [IsAuthorized]

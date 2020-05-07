@@ -12,7 +12,7 @@ namespace OnlineExaminationSystem.Controllers
         {
             if (context.HttpContext.Session["AdminID"] == null)
             {
-                context.Result = new RedirectResult("/home/AdminLogin");
+                context.Result = new RedirectResult("/AdminLogin");
             }
         }
     }
@@ -23,7 +23,7 @@ namespace OnlineExaminationSystem.Controllers
         {
             if (context.HttpContext.Session["StudentID"] == null)
             {
-                context.Result = new RedirectResult("/home/login");
+                context.Result = new RedirectResult("/login");
             }
         }
     }

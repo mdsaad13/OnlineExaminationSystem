@@ -2318,9 +2318,9 @@
     <Content Include="Views\Admin\Exams.cshtml" />
     <Content Include="Views\Admin\ExamForm.cshtml" />
     <Content Include="Views\Admin\ViewExam.cshtml" />
-    <Content Include="Views\Admin\Partials\_QuestionForm.cshtml" />
     <Content Include="Views\Admin\UpdateQuestion.cshtml" />
     <Content Include="Views\Admin\QuestionForm.cshtml" />
+    <Content Include="Views\Student\Exams.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
