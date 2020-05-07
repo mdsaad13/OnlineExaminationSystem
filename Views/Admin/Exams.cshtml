@@ -56,7 +56,7 @@
                                     @if (item.Status == 0)
                                     {
                                         <td class="text-danger font-weight-bold">
-                                            Blocked
+                                            Disabled
                                         </td>
                                     }
                                     else
@@ -71,7 +71,7 @@
                                     </td>
                                     <td>
                                         <a href="@Url.Action("ViewExam", new { id = item.ID })" class="btn btn-inverse-primary btn-rounded">
-                                            <i class="mdi mdi-pencil"></i>
+                                            <i class="mdi mdi-eye"></i>
                                         </a>
                                     </td>
                                 </tr>

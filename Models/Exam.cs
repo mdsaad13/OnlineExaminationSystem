@@ -21,7 +21,7 @@ namespace OnlineExaminationSystem.Models
         public string Description { get; set; }
 
         [Required]
-        [StringLength(1000, MinimumLength = 10)]
+        [StringLength(1000, MinimumLength = 50)]
         [AllowHtml]
         public string Rules { get; set; }
 
@@ -45,37 +45,31 @@ namespace OnlineExaminationSystem.Models
         public int ExamID { get; set; }
 
         [Required]
-        [StringLength(500, MinimumLength = 5)]
         public string Title { get; set; }
 
         [Required]
-        public string Answer { get; set; }
+        public int Answer { get; set; }
 
         [Required]
-        [StringLength(500, MinimumLength = 5)]
         public string Option1 { get; set; }
 
         [Required]
-        [StringLength(500, MinimumLength = 5)]
         public string Option2 { get; set; }
 
         [Required]
-        [StringLength(500, MinimumLength = 5)]
         public string Option3 { get; set; }
 
         [Required]
-        [StringLength(500, MinimumLength = 5)]
         public string Option4 { get; set; }
 
         [Required]
+        [RegularExpression("^[1-9][0-9]*$", ErrorMessage = "Enter a valid marks")]
         public int Marks { get; set; }
     }
 
     public class ExamBundle
     {
         public Exam Exam { get; set; }
-
-        public Question AddQuestion { get; set; }
 
         public List<Question> AllQuestion { get; set; }
     }

@@ -200,23 +200,82 @@ namespace OnlineExaminationSystem.Controllers
             AdminUtil adminUtil = new AdminUtil();
             if (adminUtil.UpdateExam(exam))
             {
+                Session["Notification"] = 5;
+            }
+            else
+            {
+                Session["Notification"] = 6;
+            }
+            return RedirectToAction("ViewExam", new { id = exam.ID });
+        }
+        
+        
+        public ActionResult ViewExam(int ID)
+        {
+            ViewBag.Title = "View Exam";
+            AdminUtil adminUtil = new AdminUtil();
+            ExamBundle examBundle = new ExamBundle();
+
+            examBundle.Exam = adminUtil.GetExamByID(ID);
+            examBundle.AllQuestion = adminUtil.AllExamQuestions(ID);
+
+            return View(examBundle);
+        }
+
+        [Route("Admin/ViewExam/{ID}/AddQuestion")]
+        public ActionResult AddQuestion(int ID)
+        {
+            ViewBag.FormSubmit = "AddQuestion";
+            ViewBag.Title = "Add Question";
+            Question question = new Question();
+            question.ExamID = ID;
+            question.Answer = 1;
+            question.Marks = 2;
+            return View("QuestionForm", question);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddQuestion(Question question)
+        {
+            AdminUtil adminUtil = new AdminUtil();
+            if (adminUtil.AddExamQuestion(question))
+            {
+                Session["Notification"] = 1;
+            }
+            else
+            {
+                Session["Notification"] = 2;
+            }
+            return RedirectToAction("ViewExam", new { id = question.ExamID });
+        }
+
+        [Route("Admin/ViewExam/{ExamID}/EditQuestion/{ID}")]
+        public ActionResult UpdateQuestion(int ID, int ExamID)
+        {
+            ViewBag.FormSubmit = "UpdateQuestion";
+            ViewBag.Title = "Update Question";
+            AdminUtil adminUtil = new AdminUtil();
+            return View("QuestionForm", adminUtil.GetQuestionByID(ID));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UpdateQuestion(Question question)
+        {
+            AdminUtil adminUtil = new AdminUtil();
+            if (adminUtil.UpdateExamQuestion(question))
+            {
                 Session["Notification"] = 3;
             }
             else
             {
                 Session["Notification"] = 4;
             }
-            return RedirectToAction("Exams");
+            return RedirectToAction("ViewExam", new { id = question.ExamID });
         }
+
         /* Exams operations ends here */
-
-        public ActionResult ViewExam(int ID)
-        {
-            ViewBag.Title = "View Exam";
-            AdminUtil adminUtil = new AdminUtil();
-            return View(adminUtil.GetExamByID(ID));
-        }
-
         public ActionResult Logout()
         {
             Session.Abandon();

@@ -57,6 +57,7 @@ namespace OnlineExaminationSystem.DAL
             Conn.Close();
         }
 
+        /* Subject util starts here */
         internal bool AddSubject(Subjects model)
         {
             bool result = false;
@@ -175,7 +176,9 @@ namespace OnlineExaminationSystem.DAL
             }
             return result;
         }
+        /* Subject util ends here */
 
+        /* Exam util starts here */
         internal bool AddExam(Exam model)
         {
             bool result = false;
@@ -314,5 +317,157 @@ namespace OnlineExaminationSystem.DAL
             return obj;
 
         }
+        /* Exam util ends here */
+
+        /* Questions util starts here */
+        internal bool AddExamQuestion(Question model)
+        {
+            bool result = false;
+            try
+            {
+                string query = "INSERT INTO questions (exam_id, question, answer, opt1, opt2, opt3, opt4, marks)" +
+                    " VALUES(@exam_id, @question, @answer, @opt1, @opt2, @opt3, @opt4, @marks)";
+                SqlCommand cmd = new SqlCommand(query, Conn);
+
+                cmd.Parameters.Add(new SqlParameter("exam_id", model.ExamID));
+                cmd.Parameters.Add(new SqlParameter("question", model.Title));
+                cmd.Parameters.Add(new SqlParameter("answer", model.Answer));
+                cmd.Parameters.Add(new SqlParameter("opt1", model.Option1));
+                cmd.Parameters.Add(new SqlParameter("opt2", model.Option2));
+                cmd.Parameters.Add(new SqlParameter("opt3", model.Option3));
+                cmd.Parameters.Add(new SqlParameter("opt4", model.Option4));
+                cmd.Parameters.Add(new SqlParameter("marks", model.Marks));
+
+                Conn.Open();
+
+                int rows = cmd.ExecuteNonQuery();
+                if (rows > 0)
+                {
+                    result = true;
+                }
+            }
+            catch (Exception exp)
+            {
+
+            }
+            finally
+            {
+                Conn.Close();
+            }
+            return result;
+        }
+
+        internal List<Question> AllExamQuestions(int ExamID, bool Random = false)
+        {
+            DataTable td = new DataTable();
+            List<Question> list = new List<Question>();
+            try
+            {
+                string Sort = "ORDER BY exam_id DESC";
+                if (Random)
+                {
+                    Sort = "ORDER BY NEWID()";
+                }
+
+                string sqlquery = "SELECT * FROM questions WHERE exam_id = @exam_id "+ Sort;
+                SqlCommand cmd = new SqlCommand(sqlquery, Conn);
+                cmd.Parameters.Add(new SqlParameter("exam_id", ExamID));
+                SqlDataAdapter adp = new SqlDataAdapter(cmd);
+                Conn.Open();
+                adp.Fill(td);
+                Conn.Close();
+                foreach (DataRow row in td.Rows)
+                {
+                    Question obj = new Question
+                    {
+                        ID = Convert.ToInt32(row["ques_id"]),
+                        ExamID = Convert.ToInt32(row["exam_id"]),
+                        Title = Convert.ToString(row["question"]),
+                        Answer = Convert.ToInt32(row["answer"]),
+                        Option1 = Convert.ToString(row["opt1"]),
+                        Option2 = Convert.ToString(row["opt2"]),
+                        Option3 = Convert.ToString(row["opt3"]),
+                        Option4 = Convert.ToString(row["opt4"]),
+                        Marks = Convert.ToInt32(row["marks"]),
+                    };
+                    list.Add(obj);
+                }
+            }
+            catch (Exception)
+            { }
+            return list;
+        }
+
+        internal Question GetQuestionByID(int id)
+        {
+            DataTable td = new DataTable();
+            Question obj = new Question();
+            try
+            {
+                string sqlquery = "SELECT * FROM questions where ques_id = @id";
+                SqlCommand cmd = new SqlCommand(sqlquery, Conn);
+                cmd.Parameters.Add(new SqlParameter("id", id));
+
+                SqlDataAdapter adp = new SqlDataAdapter(cmd);
+
+                Conn.Open();
+
+                adp.Fill(td);
+
+                Conn.Close();
+
+                obj.ID = Convert.ToInt32(td.Rows[0]["ques_id"]);
+                obj.ExamID = Convert.ToInt32(td.Rows[0]["exam_id"]);
+                obj.Title = Convert.ToString(td.Rows[0]["question"]);
+                obj.Answer = Convert.ToInt32(td.Rows[0]["answer"]);
+                obj.Option1 = Convert.ToString(td.Rows[0]["opt1"]);
+                obj.Option2 = Convert.ToString(td.Rows[0]["opt2"]);
+                obj.Option3 = Convert.ToString(td.Rows[0]["opt3"]);
+                obj.Option4 = Convert.ToString(td.Rows[0]["opt4"]);
+                obj.Marks = Convert.ToInt32(td.Rows[0]["marks"]);
+            }
+            catch (Exception)
+            { }
+            return obj;
+
+        }
+
+        internal bool UpdateExamQuestion(Question model)
+        {
+            bool result = false;
+            try
+            {
+                string query = "UPDATE questions SET question = @question, answer = @answer, opt1 = @opt1, opt2 = @opt2, opt3 = @opt3, opt4 = @opt4, marks = @marks WHERE ques_id = @ques_id";
+
+                SqlCommand cmd = new SqlCommand(query, Conn);
+
+                cmd.Parameters.Add(new SqlParameter("question", model.Title));
+                cmd.Parameters.Add(new SqlParameter("answer", model.Answer));
+                cmd.Parameters.Add(new SqlParameter("opt1", model.Option1));
+                cmd.Parameters.Add(new SqlParameter("opt2", model.Option2));
+                cmd.Parameters.Add(new SqlParameter("opt3", model.Option3));
+                cmd.Parameters.Add(new SqlParameter("opt4", model.Option4));
+                cmd.Parameters.Add(new SqlParameter("marks", model.Marks));
+
+                cmd.Parameters.Add(new SqlParameter("ques_id", model.ID));
+
+                Conn.Open();
+                int rows = cmd.ExecuteNonQuery();
+                if (rows > 0)
+                {
+                    result = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Conn.Close();
+            }
+            return result;
+        }
+        /* Questions util ends here */
     }
 }
