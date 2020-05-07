@@ -317,6 +317,37 @@ namespace OnlineExaminationSystem.DAL
             return obj;
 
         }
+
+        internal bool UpdateExamStatus(int ExamID, int Status)
+        {
+            bool result = false;
+            try
+            {
+                string query = "UPDATE exams SET status = @status WHERE exam_id = @exam_id";
+
+                SqlCommand cmd = new SqlCommand(query, Conn);
+
+                cmd.Parameters.Add(new SqlParameter("status", Status));
+
+                cmd.Parameters.Add(new SqlParameter("exam_id", ExamID));
+
+                Conn.Open();
+                int rows = cmd.ExecuteNonQuery();
+                if (rows > 0)
+                {
+                    result = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Conn.Close();
+            }
+            return result;
+        }
         /* Exam util ends here */
 
         /* Questions util starts here */
@@ -468,6 +499,27 @@ namespace OnlineExaminationSystem.DAL
             }
             return result;
         }
+
+        internal void DeleteQuestion(int ID)
+        {
+            try
+            {
+                string query = "DELETE from questions where ques_id = @id";
+                SqlCommand cmd = new SqlCommand(query, Conn);
+                cmd.Parameters.Add(new SqlParameter("@id", ID));
+                Conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                Conn.Close();
+            }
+        }
+
         /* Questions util ends here */
     }
 }

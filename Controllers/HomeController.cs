@@ -14,16 +14,18 @@ namespace OnlineExaminationSystem.Controllers
         {
             return View();
         }
-
+        
         [HttpGet]
+        [Route("Logout")]
         public ActionResult Logout()
         {
             Session.Abandon();
             Session.Clear();
-            return RedirectToAction("/");
+            return RedirectToAction("Index", "Home");
         }
 
         [IsAuthorized]
+        [Route("AdminLogin")]
         public ActionResult AdminLogin()
         {
             Session["AdminID"] = 1;
@@ -36,6 +38,7 @@ namespace OnlineExaminationSystem.Controllers
         [IsAuthorized]
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("AdminLogin")]
         public ActionResult AdminLogin(Admin admin)
         {
             AccountUtil accountUtil = new AccountUtil();
@@ -53,6 +56,7 @@ namespace OnlineExaminationSystem.Controllers
         }
 
         [IsAuthorized]
+        [Route("Login")]
         public ActionResult Login()
         {
             int Notification = 0;
@@ -74,6 +78,7 @@ namespace OnlineExaminationSystem.Controllers
         [IsAuthorized]
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("Login")]
         public ActionResult Login(User user)
         {
             AccountUtil accountUtil = new AccountUtil();
@@ -94,6 +99,7 @@ namespace OnlineExaminationSystem.Controllers
         }
 
         [IsAuthorized]
+        [Route("Register")]
         public ActionResult Register()
         {
             return View();
@@ -102,6 +108,7 @@ namespace OnlineExaminationSystem.Controllers
         [IsAuthorized]
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("Register")]
         public ActionResult Register(User user)
         {
             user.DateTime = DateTime.Now;
@@ -116,6 +123,7 @@ namespace OnlineExaminationSystem.Controllers
             return View();
         }
 
+        [Route("ContactUs")]
         public ActionResult Contact()
         {
             int Notification = 0;
@@ -137,6 +145,7 @@ namespace OnlineExaminationSystem.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("ContactUs")]
         public ActionResult Contact(ContactUs contactUs)
         {
             contactUs.DateTime = DateTime.Now;

@@ -43,12 +43,22 @@
                                 <a href="@Url.Action("AddQuestion", "Admin", new { ID = Model.Exam.ID })" class="btn btn-primary">
                                     Add Question
                                 </a>
-                                <a href="@Url.Action("EditExam", new { id = Model.Exam.ID })" class="btn btn-success">
+                                <a href="@Url.Action("EditExam", new { id = Model.Exam.ID })" class="btn btn-info">
                                     Edit Exam
                                 </a>
-                                <a href="" class="btn btn-danger">
-                                    Enable Exam
-                                </a>
+                                @if (Model.Exam.Status == 0)
+                                {
+                                    <button type="button" class="btn btn-success" onclick="EnableDisableExam('@Model.Exam.ID', 1)">
+                                        Enable Exam
+                                    </button>
+                                }
+                                else
+                                {
+                                    <button type="button" class="btn btn-danger" onclick="EnableDisableExam('@Model.Exam.ID', 0)">
+                                        Disable Exam
+                                    </button>
+                                }
+
                             </div>
                         </div>
                     </div>
@@ -116,11 +126,20 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-12 mb-3">
-                                            <h5>
-                                                Question
-                                                <a class="btn btn-sm btn-outline-warning float-right" href="@Url.Action("UpdateQuestion", "Admin", new { id = item.ID , ExamID = Model.Exam.ID })">Edit</a>
-                                        </h5>
-                                            @item.Title
+                                        <div class="row">
+                                            <div class="col-8">
+                                                <h5>
+                                                    Question
+                                                </h5>
+                                                <h4>
+                                                    @item.Title
+                                                </h4>
+                                            </div>
+                                            <div class="col-4">
+                                                <a class="btn btn-sm btn-outline-info float-right mr-2" href="@Url.Action("UpdateQuestion", "Admin", new { id = item.ID , ExamID = Model.Exam.ID })">Edit</a>
+                                                <button type="button" class="btn btn-sm btn-outline-danger float-right mr-2" onclick="DeleteQuestion('@item.ID', '@Model.Exam.ID')">Delete Question</button>
+                                            </div>
+                                        </div>
                                         <hr />
                                     </div>
                                     <div class="col-6 mb-3">
@@ -174,12 +193,24 @@
         });
 
         $(document).ready(function () {
-
             $("#ViewHideData").click(function () {
                 $('#Rules').fadeToggle();
             });
-
         });
+
+        function DeleteQuestion(ID, ExamID) {
+            if (confirm('Are you sure you want to delete this question?')) {
+                window.location.replace("/Admin/DeleteQuestion/" + ID + '?ExamID=' + ExamID);
+            }
+            return false;
+        }
+
+        function EnableDisableExam(ID, Status) {
+            if (confirm('Are you sure you want change exam status?')) {
+                window.location.replace("/Admin/EnableDisableExam/" + ID + '?Status=' + Status);
+            }
+            return false;
+        }
     </script>
 
     @{
@@ -223,6 +254,40 @@
             </script>
             Session["Notification"] = null;
         }
+        else if (Notification == 5)
+        {
+            <script>
+                successToast('Exam updated successfully!');
+            </script>
+            Session["Notification"] = null;
+        }
+        else if (Notification == 6)
+        {
+            <script>
+                errorToast();
+            </script>
+            Session["Notification"] = null;
+        }
+        else if (Notification == 7)
+        {
+            <script>
+                successToast('Question deleted successfully!');
+            </script>
+            Session["Notification"] = null;
+        }
+        else if (Notification == 8)
+        {
+            <script>
+                successToast('Exam status updated successfully!');
+            </script>
+            Session["Notification"] = null;
+        }
+        else if (Notification == 9)
+        {
+            <script>
+                errorToast();
+            </script>
+            Session["Notification"] = null;
+        }
     }
 }
-

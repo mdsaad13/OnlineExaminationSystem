@@ -29,6 +29,11 @@ namespace OnlineExaminationSystem.Controllers
 
         public ActionResult Index()
         {
+            General general = new General();
+            ViewBag.UsersCount = general.Count("users");
+            ViewBag.ExamsCount = general.Count("exams");
+            ViewBag.EnqsCount = general.Count("enquiry");
+
             return View();
         }
         
@@ -275,7 +280,31 @@ namespace OnlineExaminationSystem.Controllers
             return RedirectToAction("ViewExam", new { id = question.ExamID });
         }
 
+        public ActionResult DeleteQuestion(int ID, int ExamID)
+        {
+            AdminUtil adminUtil = new AdminUtil();
+            adminUtil.DeleteQuestion(ID);
+            Session["Notification"] = 7;
+            return RedirectToAction("ViewExam", new { id = ExamID });
+        }
+
+        public ActionResult EnableDisableExam(int ID, int Status)
+        {
+            AdminUtil adminUtil = new AdminUtil();
+            if (adminUtil.UpdateExamStatus(ID, Status))
+            {
+                Session["Notification"] = 8;
+            }
+            else
+            {
+                Session["Notification"] = 9;
+            }
+            return RedirectToAction("ViewExam", new { id = ID });
+        }
+
         /* Exams operations ends here */
+        [HttpGet]
+        [Route("Admin/Logout")]
         public ActionResult Logout()
         {
             Session.Abandon();
