@@ -1,0 +1,72 @@
+﻿@model OnlineExaminationSystem.Models.User
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_LandingLayout.cshtml";
+}
+
+<main class="page-auth">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 offset-lg-1">
+                <section class="auth-wrapper">
+                    <div class="row">
+                        <div class="col-md-6 mb-4 mb-md-0">
+                            <h2 class="auth-section-title">Create account</h2>
+                            <p class="auth-section-subtitle">Create your account to continue.</p>
+                            @if (ViewBag.ErrorMessage != null)
+                            {
+                                <div class="alert alert-danger" role="alert">
+                                    @Html.Raw(ViewBag.ErrorMessage)
+                                </div>
+                            }
+
+                            @if (ViewBag.SuccessMessage != null)
+                            {
+                                <div class="alert alert-success" role="alert">
+                                    @Html.Raw(ViewBag.SuccessMessage)
+                                </div>
+                            }
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
+                                <div class="form-group">
+                                    <label for="email">Name <sup>*</sup></label>
+                                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter your name" } })
+                                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "error" })
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Mobile Number <sup>*</sup></label>
+                                    @Html.EditorFor(model => model.Mobile, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter your mobile" } })
+                                    @Html.ValidationMessageFor(model => model.Mobile, "", new { @class = "error" })
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email <sup>*</sup></label>
+                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter your email" } })
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "error" })
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password <sup>*</sup></label>
+                                    @Html.PasswordFor(model => model.Password, new { @class = "form-control", @placeholder = "Enter your password" })
+                                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "error" })
+                                </div>
+                                <div class="form-group">
+                                    <label for="confirmPassword">Confirm Password <sup>*</sup></label>
+                                    @Html.PasswordFor(model => model.Re_Password, new { @class = "form-control", @placeholder = "Re-Enter your password" })
+                                    @Html.ValidationMessageFor(model => model.Re_Password, "", new { @class = "error" })
+                                </div>
+                                <button class="btn btn-primary btn-block btn-lg btn-auth-submit" type="submit">Create account</button>
+                            }
+                            <p class="mb-0">
+                                <a href="@Url.Action("Login")" class="text-dark font-weight-bold">Already have an acocunt? Sign in</a>
+                            </p>
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <img src="~/LandingPageAssets/images/Register.png" alt="login" class="img-fluid">
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</main>
+

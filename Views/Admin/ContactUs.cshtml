@@ -1,0 +1,71 @@
+﻿@model IEnumerable<OnlineExaminationSystem.Models.ContactUs>
+@{
+    ViewBag.Title = "Contact Us";
+    ViewBag.ContactUsActive = "active";
+}
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary mr-2 text-white">
+            <i class="mdi mdi-home"></i>
+        </span> @ViewBag.Title
+    </h3>
+    <nav aria-label="breadcrumb" role="navigation">
+        <ol class="breadcrumb bg-dark">
+            <li class="breadcrumb-item"><a href="@Url.Action("Index")">Dashboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@ViewBag.Title</li>
+        </ol>
+    </nav>
+</div>
+<div class="row">
+    <div class="col-12 grid-margin">
+        <div class="card card-outline-primary">
+            <div class="card-body">
+                <h4 class="card-title">@ViewBag.Title or Enquiries</h4>
+                <table class="table" id="dataTable">
+                    <thead>
+                        <tr>
+                            <th> # </th>
+                            <th> Name </th>
+                            <th> Email </th>
+                            <th> Mobile </th>
+                            <th> Subject </th>
+                            <th> Message </th>
+                            <th> Date </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int i = 1;
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@i</td>
+                                    <td>@item.Name</td>
+                                    <td>@item.Email</td>
+                                    <td>@item.Mobile</td>
+                                    <td>@item.Sub</td>
+                                    <td>@item.Message</td>
+                                    <td>
+                                        @item.DateTime.ToLongDateString() <br />
+                                        <span class="text-muted">@item.DateTime.ToShortTimeString()</span>
+
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $('#dataTable').DataTable({
+            responsive: true,
+            scrollY: '50vh',
+            scrollCollapse: true,
+        });
+    </script>
+}

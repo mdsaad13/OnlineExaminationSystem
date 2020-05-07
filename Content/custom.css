@@ -1,0 +1,95 @@
+﻿.error {
+    color: #f96868;
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: 6px;
+}
+
+.form-control {
+    border: 1px solid #e0e0e0;
+}
+
+    .form-control:focus {
+        color: #495057;
+        border-color: #6206a8;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgba(98, 6, 168, 0.26);
+    }
+
+select.form-control {
+    color: #495057;
+}
+
+.card.card-outline-primary {
+    border: unset;
+    border-left: 3px solid #6206a8;
+}
+
+.card {
+    box-shadow: 0px 0px 30px 2px rgba(0, 0, 0, 0.21);
+}
+
+.sidebar .nav .nav-item {
+    padding: 0 1rem;
+}
+
+    .sidebar .nav .nav-item .nav-link {
+        padding: 1.125rem 18px;
+    }
+
+    .sidebar .nav .nav-item.active .nav-link {
+        background: linear-gradient(to right, #9a55ff, #6206a8) !important;
+        border-radius: 10px;
+        color: white;
+        box-shadow: 0px 0px 15px 0px rgba(163,157,163,1);
+    }
+
+    .sidebar .nav .nav-item.active > .nav-link .menu-title {
+        color: #ffffff;
+    }
+
+    .sidebar .nav .nav-item.active > .nav-link i {
+        color: #ffffff;
+    }
+
+.navbar-nav .nav-link {
+    color: #2c2c2c !important;
+}
+
+    .navbar-nav .nav-link a {
+        color: #2c2c2c !important;
+        text-decoration: none;
+    }
+
+        .navbar-nav .nav-link a:hover {
+            opacity: 0.7;
+        }
+
+.navbar .navbar-brand-wrapper .navbar-brand {
+    color: #2c2c2c !important;
+}
+
+.navbar .navbar-menu-wrapper {
+    color: #2c2c2c !important;
+}
+
+    .navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-profile .nav-link .nav-profile-text p {
+        font-weight: bold;
+        margin-bottom: auto !important;
+    }
+
+.breadcrumb .breadcrumb-item.active {
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.card .card-title {
+    margin-bottom: 1.05rem;
+}
+
+.pagination, .jsgrid .jsgrid-pager {
+    overflow-x: hidden;
+}
+
+.dataTables_wrapper .dataTable .btn, .dataTables_wrapper .dataTable .fc button, .fc .dataTables_wrapper .dataTable button, .dataTables_wrapper .dataTable .ajax-upload-dragdrop .ajax-file-upload, .ajax-upload-dragdrop .dataTables_wrapper .dataTable .ajax-file-upload, .dataTables_wrapper .dataTable .swal2-modal .swal2-buttonswrapper .swal2-styled, .swal2-modal .swal2-buttonswrapper .dataTables_wrapper .dataTable .swal2-styled, .dataTables_wrapper .dataTable .wizard > .actions a, .wizard > .actions .dataTables_wrapper .dataTable a {
+    padding: inherit;
+}

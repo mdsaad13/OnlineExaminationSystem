@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>@ViewBag.Title - @AppInfo.SoftwareName</title>
+    <link rel="stylesheet" href="~/fonts/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="~/LandingPageAssets/css/style.css">
+    <style>
+        .error {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .auth-wrapper {
+            padding-top: 60px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="foi-header @ViewBag.header">
+        <div class="container">
+            @{ Html.RenderPartial("Partials/_Nav"); }
+            @if (ViewBag.header != null)
+            {
+                <div class="header-content">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h1>Knowledge is Power. <br />Test It.</h1>
+                            <p class="text-dark">
+                                Free online test to practice for Competitive exams. Aptitude, Logical Reasoning, Computer Questions will help you to prepare for Online Exam, Entrance and Interview. Learn and Practice online test for Free
+                            </p>
+                            <a href="@Url.Action("Register")" class="btn btn-primary mb-4">Get Started</a>
+                        </div>
+                        <div class="col-md-6">
+                            <img src="~/LandingPageAssets/images/hero.png" alt="app" width="388px" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </header>
+
+    @RenderBody()
+
+    <footer class="foi-footer text-white">
+        <div class="container">
+            <div class="row footer-content">
+                <div class="col-xl-6 col-lg-7 col-md-8">
+                    <h2 class="mb-0">Do you want to know more or just have a question? write to us.</h2>
+                </div>
+                <div class="col-md-4 col-lg-5 col-xl-6 py-3 py-md-0 d-md-flex align-items-center justify-content-end">
+                    <a href="@Url.Action("Contact")" class="btn btn-danger btn-lg">Contact Us</a>
+                </div>
+            </div>
+            <div class="row footer-widget-area">
+                <div class="col-md-4">
+                    <div class="py-3">
+                        @AppInfo.SoftwareName
+                    </div>
+                </div>
+                <div class="col-md-4 mt-3 mt-md-0">
+                    <nav>
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a href="@Url.Action("Index")" class="nav-link">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="@Url.Action("Login")" class="nav-link">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="@Url.Action("Register")" class="nav-link">Signup</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="@Url.Action("Contact")" class="nav-link">Contact Us</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-md-4 mt-3 mt-md-0">
+                    <p>
+                        &copy; @AppInfo.SoftwareShortName @DateTime.Now.Year <a href="#" rel="noopener noreferrer" class="text-reset">@AppInfo.OwnerName</a>.
+                    </p>
+                    <p>All rights reserved.</p>
+                    <nav class="social-menu">
+                        <a href="@AppInfo.FbURL"><img src="~/LandingPageAssets/images/facebook.svg" alt="facebook"></a>
+                        <a href="@AppInfo.InstaURL"><img src="~/LandingPageAssets/images/instagram.svg" alt="instagram"></a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/LandingPageAssets/"></script>
+    <script src="~/LandingPageAssets/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    @Scripts.Render("~/jqueryval")
+    @RenderSection("scripts", required: false)
+</body>
+
+</html>
