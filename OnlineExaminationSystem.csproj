@@ -129,11 +129,13 @@
     <Compile Include="DAL\AdminUtil.cs" />
     <Compile Include="DAL\General.cs" />
     <Compile Include="DAL\LandingPageUtil.cs" />
+    <Compile Include="DAL\StudentUtil.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ContactUs.cs" />
     <Compile Include="Models\Exam.cs" />
+    <Compile Include="Models\Result.cs" />
     <Compile Include="Models\Subjects.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -2308,7 +2310,6 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\AdminLogin.cshtml" />
     <Content Include="Views\Admin\Partials\_nav.cshtml" />
-    <Content Include="Views\Student\Index.cshtml" />
     <Content Include="Views\Student\Partials\_nav.cshtml" />
     <Content Include="Views\Admin\ContactUs.cshtml" />
     <Content Include="Views\Admin\Users.cshtml" />
@@ -2321,6 +2322,13 @@
     <Content Include="Views\Admin\UpdateQuestion.cshtml" />
     <Content Include="Views\Admin\QuestionForm.cshtml" />
     <Content Include="Views\Student\Exams.cshtml" />
+    <Content Include="Views\Student\ViewExam.cshtml" />
+    <Content Include="Views\Student\AttendExam.cshtml" />
+    <Content Include="Views\Student\Error.cshtml" />
+    <Content Include="Views\Student\Results.cshtml" />
+    <Content Include="Views\Student\Result.cshtml" />
+    <Content Include="Views\Student\Index.cshtml" />
+    <Content Include="Views\Student\Settings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

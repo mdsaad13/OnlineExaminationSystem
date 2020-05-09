@@ -28,11 +28,11 @@ namespace OnlineExaminationSystem.Controllers
         [Route("AdminLogin")]
         public ActionResult AdminLogin()
         {
-            Session["AdminID"] = 1;
-            Session["Name"] = "Mohammed Saad";
-            return RedirectToAction("Index", "Admin");
+            //Session["AdminID"] = 1;
+            //Session["Name"] = "Mohammed Saad";
+            //return RedirectToAction("Index", "Admin");
 
-            //return View();
+            return View();
         }
 
         [IsAuthorized]
@@ -59,24 +59,24 @@ namespace OnlineExaminationSystem.Controllers
         [Route("Login")]
         public ActionResult Login()
         {
-            Session["StudentID"] = 1;
-            Session["Name"] = "Mohammed Saad";
-            return RedirectToAction("Index", "Student");
+            //Session["StudentID"] = 1;
+            //Session["Name"] = "Mohammed Saad";
+            //return RedirectToAction("Index", "Student");
 
-            //int Notification = 0;
-            //try
-            //{
-            //    Notification = Convert.ToInt32(Session["Notification"]);
-            //}
-            //catch
-            //{ }
+            int Notification = 0;
+            try
+            {
+                Notification = Convert.ToInt32(Session["Notification"]);
+            }
+            catch
+            { }
 
-            //if (Notification == 1)
-            //{
-            //    ViewBag.SuccessMessage = "Account successfully created!<br>Kindly login to access dashboard";
-            //    Session["Notification"] = null;
-            //}
-            //return View();
+            if (Notification == 1)
+            {
+                ViewBag.SuccessMessage = "Account successfully created!<br>Kindly login to access dashboard";
+                Session["Notification"] = null;
+            }
+            return View();
         }
 
         [IsAuthorized]

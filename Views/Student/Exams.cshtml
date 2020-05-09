@@ -82,8 +82,7 @@
                                         </td>
                                     }
                                     <td>
-                                        @item.DateTime.ToLongDateString() <br />
-                                        <span class="text-muted">@item.DateTime.ToShortTimeString()</span>
+                                        @item.DateTime.ToLongDateString()
                                     </td>
                                     <td>
                                         <a href="@Url.Action("ViewExam", new { id = item.ID })" class="btn btn-inverse-primary btn-rounded">

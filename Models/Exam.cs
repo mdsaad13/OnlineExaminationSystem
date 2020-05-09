@@ -65,6 +65,8 @@ namespace OnlineExaminationSystem.Models
         [Required]
         [RegularExpression("^[1-9][0-9]*$", ErrorMessage = "Enter a valid marks")]
         public int Marks { get; set; }
+
+        public int UserAnswered { get; set; }
     }
 
     public class ExamBundle

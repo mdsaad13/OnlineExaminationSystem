@@ -1,7 +1,58 @@
-﻿@{
-    ViewBag.Title = "Index";
-    ViewBag.DashboardActive = "active";
+﻿
+@{
+    ViewBag.Title = "Home";
+    ViewBag.HomeActive = "active";
 }
 
-<h2>Index</h2>
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary mr-2 text-white">
+            <i class="mdi mdi-account-multiple"></i>
+        </span> @ViewBag.Title
+    </h3>
+    <nav aria-label="breadcrumb" role="navigation">
+        <ol class="breadcrumb bg-dark">
+            <li class="breadcrumb-item active" aria-current="page">@ViewBag.Title</li>
+        </ol>
+    </nav>
+</div>
+
+<div class="row">
+    <div class="col-md-4 stretch-card grid-margin">
+        <div class="card bg-gradient-danger card-img-holder">
+            <div class="card-body">
+                <img src="~/Images/circle.svg" class="card-img-absolute" />
+                <h4 class="font-weight-normal mb-3">
+                    Exams <i class="mdi mdi-chart-line mdi-24px float-right"></i>
+                </h4>
+                <h2 class="mb-5">@ViewBag.ExamsCount</h2>
+                <h6 class="card-text"><a href="@Url.Action("Exams")">View Details</a></h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 stretch-card grid-margin">
+        <div class="card bg-gradient-info card-img-holder">
+            <div class="card-body">
+                <img src="~/Images/circle.svg" class="card-img-absolute" />
+                <h4 class="font-weight-normal mb-3">
+                    Upcomming Exams <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
+                </h4>
+                <h2 class="mb-5">@ViewBag.UpcommingExams</h2>
+                <h6 class="card-text"><span class="text-muted">Comming soon...</span></h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 stretch-card grid-margin">
+        <div class="card bg-gradient-success card-img-holder">
+            <div class="card-body">
+                <img src="~/Images/circle.svg" class="card-img-absolute" />
+                <h4 class="font-weight-normal mb-3">
+                    Exams Attended <i class="mdi mdi-diamond mdi-24px float-right"></i>
+                </h4>
+                <h2 class="mb-5">@ViewBag.ExamsAttended</h2>
+                <h6 class="card-text"><a href="@Url.Action("Results")">View Details</a></h6>
+            </div>
+        </div>
+    </div>
+</div>
 

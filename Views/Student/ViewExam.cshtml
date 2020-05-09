@@ -1,0 +1,103 @@
+﻿@model OnlineExaminationSystem.Models.Exam
+@{
+    ViewBag.Title = "View Exam";
+    ViewBag.ExamsActive = "active";
+}
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary mr-2 text-white">
+            <i class="mdi mdi-account-multiple"></i>
+        </span> @ViewBag.Title
+    </h3>
+    <nav aria-label="breadcrumb" role="navigation">
+        <ol class="breadcrumb bg-dark">
+            <li class="breadcrumb-item"><a href="@Url.Action("Index")">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="@Url.Action("Exams")">All Exams</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@ViewBag.Title</li>
+        </ol>
+    </nav>
+</div>
+
+<div class="row">
+    <div class="col-12 grid-margin">
+        <div class="card card-outline-primary">
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <h3 class="">@Model.Title</h3>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <tr>
+                            <th>
+                                Description
+                            </th>
+                            <td>
+                                @Model.Description
+                            </td>
+                            <th>
+                                Added Date
+                            </th>
+                            <td>
+                                @Model.DateTime.ToLongDateString()
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Subject
+                            </th>
+                            <td>
+                                @Model.SubjectName
+                            </td>
+                            <th>
+                                Passing Marks
+                            </th>
+                            <td>
+                                @Model.PassingMarks
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="text-break mt-3">
+                        <h4 class="text-center">
+                            Rules and regulation (OR) Terms and conditions
+                        </h4>
+                        <div class="text-break text-justify">
+                            @Html.Raw(Model.Rules)
+                        </div>
+                    </div>
+                    <div class="text-center mt-5">
+                        <input type="hidden" name="exam_id" id="exam_id" value="@Model.ID" />
+                        <button type="button" id="btn-AttendExam" class="btn btn-gradient-primary w-50">Attend Exam</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+
+        $('#btn-AttendExam').click(function (e) {
+            e.preventDefault();
+            var ExamID = $('#exam_id').val();
+
+            $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("RegisterExam")",
+                    data: {
+                        ExamID: ExamID
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.Status) {
+                            window.location.replace("@Url.Action("AttendExam")");
+                        } else {
+                            errorToast('An error occured while opening exam');
+                        }
+                    }
+            });
+        });
+    </script>
+}

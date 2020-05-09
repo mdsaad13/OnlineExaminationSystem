@@ -218,5 +218,35 @@ namespace OnlineExaminationSystem.DAL
             return result;
         }
 
+        internal bool UpdateUserPassword(string NewPassword, int ID)
+        {
+            bool result = false;
+            try
+            {
+                string query = "UPDATE users SET password = @password WHERE user_id = @id";
+
+                SqlCommand cmd = new SqlCommand(query, Conn);
+                cmd.Parameters.Add(new SqlParameter("password", NewPassword));
+
+                cmd.Parameters.Add(new SqlParameter("id", ID));
+
+                Conn.Open();
+                int rows = cmd.ExecuteNonQuery();
+                if (rows > 0)
+                {
+                    result = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Conn.Close();
+            }
+            return result;
+        }
+
     }
 }

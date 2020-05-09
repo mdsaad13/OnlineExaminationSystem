@@ -1,0 +1,210 @@
+﻿@model OnlineExaminationSystem.Models.ResultBundle
+@{
+    ViewBag.Title = "Result";
+    ViewBag.ResultsActive = "active";
+}
+<style>
+    .correctAns {
+        background: #46c35f;
+        border-radius: 6px;
+        color: white;
+    }
+
+    .incorrectAns {
+        background: #E91E63;
+        border-radius: 6px;
+        color: white;
+    }
+
+    .correctAnsLight{
+        background: #58d8a3;
+        border-radius: 6px;
+        color: white;
+    }
+</style>
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary mr-2 text-white">
+            <i class="mdi mdi-account-multiple"></i>
+        </span> @ViewBag.Title
+    </h3>
+    <nav aria-label="breadcrumb" role="navigation">
+        <ol class="breadcrumb bg-dark">
+            <li class="breadcrumb-item"><a href="@Url.Action("Index")">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="@Url.Action("Results")">My Results</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@ViewBag.Title</li>
+        </ol>
+    </nav>
+</div>
+<div class="row">
+    <div class="col-12 grid-margin">
+        <div class="card card-outline-primary">
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-9">
+                        <h3 class="">
+                            @Model.Exam.Title
+                            <span class="badge badge-@((Model.Result.Status.StatusInInt == 0)? "danger": "success")">
+                                @Model.Result.Status.StatusInStr
+                            </span>
+                        </h3>
+                    </div>
+                    <div class="col-3 text-right">
+                        Date attended: @Model.Result.AttendDate.ToLongDateString()
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <tr>
+                            <th>
+                                Subject
+                            </th>
+                            <td>
+                                @Model.Exam.SubjectName
+                            </td>
+                            <th>
+                                Passing Marks
+                            </th>
+                            <td>
+                                @Model.Exam.PassingMarks
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Marks Scored
+                            </th>
+                            <th>
+                                @Model.Result.Status.MarksScored/@Model.Result.Status.TotalMarks
+                            </th>
+                            <th>
+                                Percentage
+                            </th>
+                            <th>
+                                @Model.Result.Status.Percentage
+                                <sup>%</sup>
+                            </th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 grid-margin">
+        <div class="card card-outline-primary">
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-7">
+                        <h3 class="">
+                            Paper Overview
+                        </h3>
+                    </div>
+                </div>
+                <div class="text-break">
+                    <hr />
+                    @{
+                        int i = 1;
+                        foreach (var item in Model.AllQuestion)
+                        {
+                            <div class="row mb-3">
+                                <div class="col-12 font-weight-bold p-2">
+                                    @i. @item.Title
+                                </div>
+                                <div class="col-6 p-2 mb-1 @if (item.UserAnswered == 1)
+                                {
+                                    if (item.Answer == 1)
+                                    {
+                                        @("correctAns")
+                                    }
+                                    else
+                                    {
+                                        @("incorrectAns")
+                                    }
+                                }
+                                else
+                                {
+                                    if (item.Answer == 1)
+                                    {
+                                        @("correctAnsLight")
+                                    }
+                                }
+                                ">
+                                    A. @item.Option1
+                                </div>
+                                <div class="col-6 p-2 mb-1 @if (item.UserAnswered == 2)
+                                {
+                                    if (item.Answer == 2)
+                                    {
+                                        @("correctAns")
+                                    }
+                                    else
+                                    {
+                                        @("incorrectAns")
+                                    }
+                                }
+                                else
+                                {
+                                    if (item.Answer == 2)
+                                    {
+                                        @("correctAnsLight")
+                                    }
+                                }">
+                                    B. @item.Option2
+                                </div>
+                                <div class="col-6 p-2 mb-1 @if (item.UserAnswered == 3)
+                                {
+                                    if (item.Answer == 3)
+                                    {
+                                        @("correctAns")
+                                    }
+                                    else
+                                    {
+                                        @("incorrectAns")
+                                    }
+                                }
+                                else
+                                {
+                                    if (item.Answer == 3)
+                                    {
+                                        @("correctAnsLight")
+                                    }
+                                }">
+                                    C. @item.Option3
+                                </div>
+                                <div class="col-6 p-2 mb-1 @if (item.UserAnswered == 4)
+                                {
+                                    if (item.Answer == 4)
+                                    {
+                                        @("correctAns")
+                                    }
+                                    else
+                                    {
+                                        @("incorrectAns")
+                                    }
+                                }
+                                else
+                                {
+                                    if (item.Answer == 4)
+                                    {
+                                        @("correctAnsLight")
+                                    }
+                                }">
+                                    D. @item.Option4
+                                </div>
+                                <div class="col-12 p-2 mb-1">
+                                    <h5 class="text-muted">Marks : @item.Marks</h5>
+                                    <h5>
+                                        Marks Obtained = @((item.Answer == item.UserAnswered) ? @item.Marks : 0)
+                                    </h5>
+                                </div>
+                            </div>
+                            <hr />
+                            i++;
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

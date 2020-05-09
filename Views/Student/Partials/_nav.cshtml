@@ -13,15 +13,28 @@
                 </div>
             </a>
         </li>
-        <li class="nav-item @ViewBag.DashboardActive">
+
+        <li class="nav-item @ViewBag.HomeActive">
             <a class="nav-link" href="@Url.Action("Index")">
-                <span class="menu-title">Dashboard</span>
+                <span class="menu-title">Home</span>
                 <i class="mdi mdi-home menu-icon"></i>
             </a>
         </li>
         <li class="nav-item @ViewBag.ExamsActive">
             <a class="nav-link" href="@Url.Action("Exams")">
                 <span class="menu-title">Exams</span>
+                <i class="mdi mdi-home menu-icon"></i>
+            </a>
+        </li>
+        <li class="nav-item @ViewBag.ResultsActive">
+            <a class="nav-link" href="@Url.Action("Results")">
+                <span class="menu-title">My Results</span>
+                <i class="mdi mdi-home menu-icon"></i>
+            </a>
+        </li>
+        <li class="nav-item @ViewBag.SettingsActive">
+            <a class="nav-link" href="@Url.Action("Settings")">
+                <span class="menu-title">Settings</span>
                 <i class="mdi mdi-home menu-icon"></i>
             </a>
         </li>

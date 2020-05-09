@@ -1,0 +1,142 @@
+﻿@model OnlineExaminationSystem.Models.User
+@{
+    ViewBag.Title = "Settings";
+    ViewBag.SettingsActive = "active";
+}
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary mr-2 text-white">
+            <i class="mdi mdi-account-multiple"></i>
+        </span> @ViewBag.Title
+    </h3>
+    <nav aria-label="breadcrumb" role="navigation">
+        <ol class="breadcrumb bg-dark">
+            <li class="breadcrumb-item"><a href="@Url.Action("Index")">Dashboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@ViewBag.Title</li>
+        </ol>
+    </nav>
+</div>
+
+<div class="row">
+    <div class="col-6 grid-margin">
+        <div class="card card-outline-primary">
+            <div class="card-body">
+                <h3 class="card-title">General Settings</h3>
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.Status)
+                    @Html.HiddenFor(model => model.ID)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Name)
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "error" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Email)
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "error" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Mobile)
+                        @Html.EditorFor(model => model.Mobile, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Mobile, "", new { @class = "error" })
+                    </div>
+
+                    <div class="text-center mt-5">
+                        <button type="submit" class="btn btn-inverse-primary w-50">Update</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card card-outline-primary">
+            <div class="card-body">
+                <h3 class="card-title">Change Password</h3>
+                @using (Html.BeginForm("ChangePassword", "Student", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+
+                            <div class="form-group">
+                                <label>Current password</label>
+                                <input class="form-control" data-val="true" data-val-length="Enter a valid password" data-val-length-max="16" data-val-length-min="6" data-val-regex="Enter a valid password" data-val-regex-pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!#$%^&amp;_+-=]{6,16}$" data-val-required="Kindly enter your password" id="OldPassword" name="OldPassword" type="password">
+                                <span class="field-validation-valid error" data-valmsg-for="OldPassword" data-valmsg-replace="true"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label>New password</label>
+                                <input class="form-control" data-val="true" data-val-length="Enter a valid password" data-val-length-max="16" data-val-length-min="6" data-val-regex="Enter a valid password" data-val-regex-pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!#$%^&amp;_+-=]{6,16}$" data-val-required="Kindly enter your password" id="NewPassword" name="NewPassword" type="password">
+                                <span class="field-validation-valid error" data-valmsg-for="NewPassword" data-valmsg-replace="true"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Re-Enter New password</label>
+                                <input class="form-control" data-val="true" data-val-equalto="Entered Password did not match" data-val-equalto-other="*.NewPassword" id="ReNewPassword" name="ReNewPassword" type="password">
+                                <span class="field-validation-valid error" data-valmsg-for="ReNewPassword" data-valmsg-replace="true"></span>
+                            </div>
+
+                    <div class="text-center mt-5">
+                        <button type="submit" class="btn btn-inverse-danger w-50">Change Password</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    @{
+        int Notification = 0;
+        try
+        {
+            /*
+             * try block to check if Session["Notification"] exist
+             * if exist then convert  string to int
+             */
+            Notification = Convert.ToInt32(Session["Notification"]);
+        }
+        catch
+        { }
+
+        if (Notification == 1)
+        {
+            <script>
+                successToast('Profile successfully updated!');
+            </script>
+            Session["Notification"] = null;
+        }
+        else if (Notification == 2)
+        {
+            <script>
+                errorToast();
+            </script>
+            Session["Notification"] = null;
+        }
+        else if (Notification == 3)
+        {
+            <script>
+                successToast('Password successfully updated!');
+            </script>
+            Session["Notification"] = null;
+        }
+        else if (Notification == 4)
+        {
+            <script>
+                errorToast();
+            </script>
+            Session["Notification"] = null;
+        }
+        else if (Notification == 5)
+        {
+            <script>
+                errorToast("Password didn't match!<br>Kindly enter correct password");
+            </script>
+            Session["Notification"] = null;
+        }
+    }
+}
+
