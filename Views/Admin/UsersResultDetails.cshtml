@@ -1,7 +1,7 @@
 ﻿@model OnlineExaminationSystem.Models.ResultBundle
 @{
     ViewBag.Title = "Result";
-    ViewBag.ResultsActive = "active";
+    ViewBag.UsersActive = "active";
 }
 <style>
     .correctAns {
@@ -16,7 +16,7 @@
         color: white;
     }
 
-    .correctAnsLight{
+    .correctAnsLight {
         background: #58d8a3;
         border-radius: 6px;
         color: white;
@@ -25,13 +25,13 @@
 <div class="page-header">
     <h3 class="page-title">
         <span class="page-title-icon bg-gradient-primary mr-2 text-white">
-            <i class="mdi mdi-chart-areaspline"></i>
+            <i class="mdi mdi-account-multiple"></i>
         </span> @ViewBag.Title
     </h3>
     <nav aria-label="breadcrumb" role="navigation">
         <ol class="breadcrumb bg-dark">
             <li class="breadcrumb-item"><a href="@Url.Action("Index")">Dashboard</a></li>
-            <li class="breadcrumb-item"><a href="@Url.Action("Results")">My Results</a></li>
+            <li class="breadcrumb-item"><a href="@Url.Action("Users")">All Users</a></li>
             <li class="breadcrumb-item active" aria-current="page">@ViewBag.Title</li>
         </ol>
     </nav>

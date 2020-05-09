@@ -50,6 +50,25 @@ namespace OnlineExaminationSystem.Controllers
         {
             AccountUtil accountUtil = new AccountUtil();
             return View(accountUtil.AllUsers());
+        } 
+        
+        public ActionResult UsersDetails(int ID)
+        {
+            StudentUtil studentUtil = new StudentUtil();
+            return View(studentUtil.AllResults(ID));
+        }
+        
+        public ActionResult UsersResultDetails(int ID)
+        {
+            StudentUtil studentUtil = new StudentUtil();
+            AdminUtil adminUtil = new AdminUtil();
+            ResultBundle resultBundle = new ResultBundle();
+
+            resultBundle.Result = studentUtil.GetResultByID(ID);
+            resultBundle.Exam = adminUtil.GetExamByID(resultBundle.Result.ExamID);
+            resultBundle.AllQuestion = studentUtil.ExamQuestionsWithResult(resultBundle.Result.ExamID, ID);
+
+            return View(resultBundle);
         }
 
         public ActionResult AddUser()
@@ -303,6 +322,60 @@ namespace OnlineExaminationSystem.Controllers
         }
 
         /* Exams operations ends here */
+
+
+        public ActionResult Settings()
+        {
+            AccountUtil account = new AccountUtil();
+            return View(account.GetAdminByID(Convert.ToInt32(Session["AdminID"])));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Settings(Admin user)
+        {
+            AccountUtil account = new AccountUtil();
+            user.ID = Convert.ToInt32(Session["AdminID"]);
+            if (account.UpdateAdmin(user))
+            {
+                Session["Notification"] = 1;
+            }
+            else
+            {
+                Session["Notification"] = 2;
+            }
+            return RedirectToAction("Settings");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangePassword(FormCollection formCollection)
+        {
+            string OldPassword = Convert.ToString(formCollection["OldPassword"]);
+            string NewPassword = Convert.ToString(formCollection["NewPassword"]);
+
+            AccountUtil account = new AccountUtil();
+            Admin user = account.GetAdminByID(Convert.ToInt32(Session["AdminID"]));
+
+            if (user.Password == OldPassword)
+            {
+                if (account.UpdateAdminPassword(NewPassword, user.ID))
+                {
+                    Session["Notification"] = 3;
+                }
+                else
+                {
+                    Session["Notification"] = 4;
+                }
+            }
+            else
+            {
+                Session["Notification"] = 5;
+            }
+
+            return RedirectToAction("Settings");
+        }
+
         [HttpGet]
         [Route("Admin/Logout")]
         public ActionResult Logout()

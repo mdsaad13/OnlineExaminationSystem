@@ -247,6 +247,100 @@ namespace OnlineExaminationSystem.DAL
             }
             return result;
         }
+        
+        internal Admin GetAdminByID(int id)
+        {
+            DataTable td = new DataTable();
+            Admin obj = new Admin();
+            try
+            {
+                string sqlquery = "SELECT * FROM admin where admin_id = @id";
+                SqlCommand cmd = new SqlCommand(sqlquery, Conn);
+                cmd.Parameters.Add(new SqlParameter("id", id));
+
+                SqlDataAdapter adp = new SqlDataAdapter(cmd);
+
+                Conn.Open();
+
+                adp.Fill(td);
+
+                obj.ID = Convert.ToInt32(td.Rows[0]["admin_id"]);
+                obj.Name = Convert.ToString(td.Rows[0]["name"]);
+                obj.Email = Convert.ToString(td.Rows[0]["email"]);
+                obj.Mobile = Convert.ToString(td.Rows[0]["mobile"]);
+                obj.Password = Convert.ToString(td.Rows[0]["password"]);
+            }
+            catch (Exception)
+            { }
+            finally
+            {
+                Conn.Close();
+            }
+            return obj;
+
+        }
+
+        internal bool UpdateAdmin(Admin model)
+        {
+            bool result = false;
+            try
+            {
+                string query = "UPDATE admin SET name = @name, email = @email, mobile = @mobile WHERE admin_id = @id";
+
+                SqlCommand cmd = new SqlCommand(query, Conn);
+                cmd.Parameters.Add(new SqlParameter("name", model.Name));
+                cmd.Parameters.Add(new SqlParameter("email", model.Email));
+                cmd.Parameters.Add(new SqlParameter("mobile", model.Mobile));
+
+                cmd.Parameters.Add(new SqlParameter("id", model.ID));
+
+                Conn.Open();
+                int rows = cmd.ExecuteNonQuery();
+                if (rows > 0)
+                {
+                    result = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Conn.Close();
+            }
+            return result;
+        }
+
+        internal bool UpdateAdminPassword(string NewPassword, int ID)
+        {
+            bool result = false;
+            try
+            {
+                string query = "UPDATE admin SET password = @password WHERE admin_id = @id";
+
+                SqlCommand cmd = new SqlCommand(query, Conn);
+                cmd.Parameters.Add(new SqlParameter("password", NewPassword));
+
+                cmd.Parameters.Add(new SqlParameter("id", ID));
+
+                Conn.Open();
+                int rows = cmd.ExecuteNonQuery();
+                if (rows > 0)
+                {
+                    result = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                Conn.Close();
+            }
+            return result;
+        }
 
     }
 }

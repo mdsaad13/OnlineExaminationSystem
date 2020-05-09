@@ -40,9 +40,15 @@
         <li class="nav-item @ViewBag.ContactUsActive">
             <a class="nav-link" href="@Url.Action("ContactUs")">
                 <span class="menu-title">
-                Contact Us @Html.Raw(ViewBag.PendingEnqToSee)
+                    Contact Us @Html.Raw(ViewBag.PendingEnqToSee)
                 </span>
                 <i class="menu-icon mdi mdi-phone"></i>
+            </a>
+        </li>
+        <li class="nav-item @ViewBag.SettingsActive">
+            <a class="nav-link" href="@Url.Action("Settings")">
+                <span class="menu-title">Settings</span>
+                <i class="mdi mdi-settings menu-icon"></i>
             </a>
         </li>
     </ul>

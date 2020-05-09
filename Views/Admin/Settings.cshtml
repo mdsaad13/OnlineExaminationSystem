@@ -1,4 +1,4 @@
-﻿@model OnlineExaminationSystem.Models.User
+﻿@model OnlineExaminationSystem.Models.Admin
 @{
     ViewBag.Title = "Settings";
     ViewBag.SettingsActive = "active";
@@ -25,7 +25,6 @@
                 @using (Html.BeginForm())
                 {
                     @Html.AntiForgeryToken()
-                    @Html.HiddenFor(model => model.Status)
                     @Html.HiddenFor(model => model.ID)
 
                     <div class="form-group">
@@ -57,7 +56,7 @@
         <div class="card card-outline-primary">
             <div class="card-body">
                 <h3 class="card-title">Change Password</h3>
-                @using (Html.BeginForm("ChangePassword", "Student", FormMethod.Post))
+                @using (Html.BeginForm("ChangePassword", "Admin", FormMethod.Post))
                 {
                     @Html.AntiForgeryToken()
 
@@ -139,3 +138,4 @@
         }
     }
 }
+
